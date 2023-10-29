@@ -38,7 +38,7 @@ export class CreateProductComponent {
     };
 
     // Define the URL for the POST request
-    const postUrl = 'http://localhost:8000/api/products';
+    const postUrl = 'http://yoritj.beget.tech/api/api/products';
 
     // Define the headers for the request (optional)
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -50,7 +50,7 @@ export class CreateProductComponent {
         this.router.navigate(['/']);
       },
       (error) => {
-        console.error('POST request error:', error);
+        alert('POST request error: ' + error.error);
       }
     );
   }
