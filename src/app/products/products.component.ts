@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,11 +19,19 @@ export class ProductsComponent {
   // productId: any;
 
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private http: HttpClient) {}
 
   redirectToProduct(productId: any) {
     // Redirect to the product page with the product ID in the route
     this.router.navigate(['/update-product', productId]);
+  }
+
+  deleteProduct(productId: any){
+    this.http.delete(`api/api/products/${productId}`)
+        .subscribe((response) => {
+          console.log('Delete request success:', response);
+          this.router.navigate(['/']);
+        });
   }
 
   ngOnInit(): void {
@@ -68,4 +76,5 @@ export class ProductsComponent {
       console.error('Error:', error);
     });
   }
+  
 }
