@@ -297,8 +297,9 @@
                                             </tr>
                                         </thead>
                                         <tbody class="New-table-body-component__tPVZqeEMyq" role="rowgroup">
+                                            
                                             <tr class="New-table-body-row-component__XXeBYaVjUY New-table-body-row-component--click__YNMlytGYVh"
-                                                id="table-row-0" role="row">
+                                                id="table-row-0" role="row" *ngFor="let product of productsData">
                                                 <td class="New-table-body-row-cell-component__Pz2HFf1A3z" title=""
                                                     style="position: sticky; z-index: 3; left: 0px; text-align: center; max-width: 40px; width: 40px; min-width: 0px;">
                                                     <div class="New-checkbox-cell__MgWUXyVmSV"><label
@@ -312,26 +313,26 @@
                                                     <div class="Photo-cell__dyiv8i99Vl"><img
                                                             alt="https://basket-12.wb.ru/vol1807/part180714/180714490/images/c516x688/1.jpg?1697794851407"
                                                             class="Photo-cell__img__m9sYbqHnLT"
-                                                            src="https://basket-12.wb.ru/vol1807/part180714/180714490/images/c516x688/1.jpg?1697794851407">
+                                                            src="{{ product.image }}">
                                                     </div>
                                                 </td>
                                                 <td class="New-table-body-row-cell-component__Pz2HFf1A3z"
-                                                    title="wbyuhuen"
+                                                    title="{{ product.article }}"
                                                     style="max-width: 200px; width: 200px; min-width: 0px;">
                                                     <div class="Article-cell__HLba8Wx3mu">
                                                         <div class="Article-cell__article__TT9ORUVLJA"><span
-                                                                class="Article-cell__article-text__1bjjBrTPiD">wbyuhuen</span>
+                                                                class="Article-cell__article-text__1bjjBrTPiD">{{ product.article }}</span>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td class="New-table-body-row-cell-component__Pz2HFf1A3z" title=""
                                                     style="max-width: 100px; width: 100px; min-width: 100px;">180714490
                                                 </td>
-                                                <td class="New-table-body-row-cell-component__Pz2HFf1A3z" title="Свечи"
-                                                    style="max-width: 180px; width: 180px; min-width: 0px;">Свечи</td>
-                                                <td class="New-table-body-row-cell-component__Pz2HFf1A3z" title="HOME"
-                                                    style="max-width: 106px; width: 106px; min-width: 0px;">HOME</td>
-                                                <td class="New-table-body-row-cell-component__Pz2HFf1A3z" title=""
+                                                <td class="New-table-body-row-cell-component__Pz2HFf1A3z" title="{{ product.category }}"
+                                                    style="max-width: 180px; width: 180px; min-width: 0px;">{{ product.category }}</td>
+                                                <td class="New-table-body-row-cell-component__Pz2HFf1A3z" title="{{ product.brand }}"
+                                                    style="max-width: 106px; width: 106px; min-width: 0px;">{{ product.brand }}</td>
+                                                <td class="New-table-body-row-cell-component__Pz2HFf1A3z" title="Теги"
                                                     style="max-width: 120px; width: 120px; min-width: 0px;">
                                                     <div>
                                                         <div class="Tags-cell__W+XkeB775g" role="button" tabindex="0">
@@ -346,14 +347,15 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="New-table-body-row-cell-component__Pz2HFf1A3z" title=""
+                                                <td class="New-table-body-row-cell-component__Pz2HFf1A3z" title="0"
                                                     style="max-width: 9.0072e+15px; width: 150px; min-width: 150px;">
+                                                    0
                                                     <div class="Site-rating__-vXdncrrkt"></div>
                                                 </td>
                                                 <td class="New-table-body-row-cell-component__Pz2HFf1A3z"
-                                                    title="07.10.2023"
+                                                    title="{{ product.updated_at }}"
                                                     style="max-width: 9.0072e+15px; width: 150px; min-width: 150px;">
-                                                    07.10.2023</td>
+                                                    {{ product.updated_at }}</td>
                                                 <td class="New-table-body-row-cell-component__Pz2HFf1A3z" title=""
                                                     style="max-width: 100px; width: 100px; min-width: 0px;">
                                                     <div class="Sizes-cell__VEzdpw+1Ya"><span
@@ -386,15 +388,15 @@
                                                 </td>
                                                 <td class="New-table-body-row-cell-component__Pz2HFf1A3z" title=""
                                                     style="position: sticky; z-index: 3; right: 0px; max-width: 100px; width: 100px; min-width: 0px;">
-                                                    <fieldset class="Actions-cell__mi2EDpwRN6" id="actions-cell"><button
-                                                            class="Actions-cell__button__rM1wDUDAHU" type="button"><span
-                                                                class="Actions-cell__icon__qFEBFrUhzN"><svg fill="none"
-                                                                    height="16" viewBox="-2 -2 24 24" width="16"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path clip-rule="evenodd"
-                                                                        d="M14.4374 0C15.0921 0 15.7197 0.26142 16.1781 0.723423L19.279 3.82432C19.7407 4.286 20.0001 4.91217 20.0001 5.56508C20.0001 6.21799 19.7407 6.84416 19.279 7.30584L7.95751 18.6238C7.25902 19.4295 6.2689 19.9245 5.1346 20.0023H0V19.0023L0.00324765 14.7873C0.0884382 13.7328 0.578667 12.7523 1.3265 12.0934L12.6954 0.724628C13.1564 0.26083 13.7834 0 14.4374 0ZM5.06398 18.0048C5.59821 17.967 6.09549 17.7184 6.49479 17.2616L14.0567 9.69972L10.3023 5.94519L2.6961 13.5496C2.29095 13.9079 2.04031 14.4092 2 14.8678V18.0029L5.06398 18.0048ZM11.7167 4.53115L15.4709 8.2855L17.8648 5.89162C17.9514 5.80502 18.0001 5.68756 18.0001 5.56508C18.0001 5.4426 17.9514 5.32514 17.8648 5.23854L14.7611 2.13486C14.6755 2.04855 14.5589 2 14.4374 2C14.3158 2 14.1992 2.04855 14.1136 2.13486L11.7167 4.53115Z"
-                                                                        fill="#4e4e53" fill-rule="evenodd"></path>
-                                                                </svg></span></button>
+                                                        <fieldset class="Actions-cell__mi2EDpwRN6" id="actions-cell"><button
+                                                                class="Actions-cell__button__rM1wDUDAHU" type="button" (click)="redirectToProduct(product.id)"><span
+                                                                    class="Actions-cell__icon__qFEBFrUhzN"><svg fill="none"
+                                                                        height="16" viewBox="-2 -2 24 24" width="16"
+                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                        <path clip-rule="evenodd"
+                                                                            d="M14.4374 0C15.0921 0 15.7197 0.26142 16.1781 0.723423L19.279 3.82432C19.7407 4.286 20.0001 4.91217 20.0001 5.56508C20.0001 6.21799 19.7407 6.84416 19.279 7.30584L7.95751 18.6238C7.25902 19.4295 6.2689 19.9245 5.1346 20.0023H0V19.0023L0.00324765 14.7873C0.0884382 13.7328 0.578667 12.7523 1.3265 12.0934L12.6954 0.724628C13.1564 0.26083 13.7834 0 14.4374 0ZM5.06398 18.0048C5.59821 17.967 6.09549 17.7184 6.49479 17.2616L14.0567 9.69972L10.3023 5.94519L2.6961 13.5496C2.29095 13.9079 2.04031 14.4092 2 14.8678V18.0029L5.06398 18.0048ZM11.7167 4.53115L15.4709 8.2855L17.8648 5.89162C17.9514 5.80502 18.0001 5.68756 18.0001 5.56508C18.0001 5.4426 17.9514 5.32514 17.8648 5.23854L14.7611 2.13486C14.6755 2.04855 14.5589 2 14.4374 2C14.3158 2 14.1992 2.04855 14.1136 2.13486L11.7167 4.53115Z"
+                                                                            fill="#4e4e53" fill-rule="evenodd"></path>
+                                                                    </svg></span></button>
                                                         <div class="Actions-cell__button-remove__PLAULQkeXs"><button
                                                                 class="Button-link__q36cnJyzuz Button-link--button__0zL+jIIkes Button-link--only-icon__B8LDHvUOsl Button-link--only-icon-big__11CRt06vLX Button-link--button-big__j0aMMmWH4Y Button-link--no-text-big__LzE0TdRQF9"
                                                                 type="button"><span
@@ -408,7 +410,8 @@
                                                     </fieldset>
                                                 </td>
                                             </tr>
-                                            <tr class="New-table-body-row-component__XXeBYaVjUY New-table-body-row-component--click__YNMlytGYVh"
+
+                                            <!-- <tr class="New-table-body-row-component__XXeBYaVjUY New-table-body-row-component--click__YNMlytGYVh"
                                                 id="table-row-1" role="row">
                                                 <td class="New-table-body-row-cell-component__Pz2HFf1A3z" title=""
                                                     style="position: sticky; z-index: 3; left: 0px; text-align: center; max-width: 40px; width: 40px; min-width: 0px;">
@@ -1428,7 +1431,7 @@
                                                                     </svg></span></button></div>
                                                     </fieldset>
                                                 </td>
-                                            </tr>
+                                            </tr> -->
                                         </tbody>
                                     </table>
                                 </div>

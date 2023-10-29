@@ -7,20 +7,27 @@ import { ProductsComponent } from './products/products.component';
 import { CreateProductComponent } from './create-product/create-product.component';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
+import { HttpClientModule } from '@angular/common/http';
+import { UpdateProductsComponent } from './update-products/update-products.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductsComponent,
     CreateProductComponent,
-    HeaderComponent
+    HeaderComponent,
+    UpdateProductsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+
