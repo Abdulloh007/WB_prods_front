@@ -27,11 +27,11 @@ export class ProductsComponent {
   }
 
   deleteProduct(productId: any){
-    this.http.delete(`api/api/products/${productId}`)
+    this.http.delete(`/api/api/products/${productId}`)
         .subscribe((response) => {
           console.log('Delete request success:', response);
-          this.router.navigate(['/']);
         });
+    this.router.navigate(['/']);
   }
 
   ngOnInit(): void {
