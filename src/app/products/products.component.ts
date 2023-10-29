@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 export class ProductsComponent {
 
   title = 'API';
-  private productsUrl: string = 'http://localhost:8000/api/products';
-  private categoriesUrl: string = 'http://localhost:8000/api/category';
+  private productsUrl: string = '/api/api/products';
+  private categoriesUrl: string = '/api/api/category';
 
   productsData: any[] = [];
   categoryData: any[] = [];

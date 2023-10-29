@@ -16,7 +16,7 @@ export class UpdateProductsComponent {
   brand: string | undefined;
   
   
-  private productUrl:string = `http://localhost:8000/api/products`;
+  private productUrl:string = `/api/api/products`;
   productData: any[] = [];
   productId: string | null;
 
@@ -95,7 +95,7 @@ export class UpdateProductsComponent {
     // Define the URL for the POST request
     
 
-    const postUrl = `http://localhost:8000/api/products/${this.productId}`;
+    const postUrl = `/api/api/products/${this.productId}`;
 
     // Define the headers for the request (optional)
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

@@ -38,7 +38,7 @@ export class CreateProductComponent {
     };
 
     // Define the URL for the POST request
-    const postUrl = 'http://yoritj.beget.tech/api/api/products';
+    const postUrl = '/api/api/products';
 
     // Define the headers for the request (optional)
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
