@@ -16,10 +16,10 @@ export class CreateProductComponent {
   
 
   // private categoriesUrl: string = '/api/api/category';
-  private categoriesUrl: string = 'http://localhost:8000/api/category';
+  private categoriesUrl: string = '/api/api/category';
   categoryData: any[] = [];
 
-  private subcategoriesUrl: string = 'http://localhost:8000/api/subcategory';
+  private subcategoriesUrl: string = '/api/api/subcategory';
   subcategoryData: any[] = [];
 
 
@@ -155,7 +155,7 @@ export class CreateProductComponent {
 
     // Define the URL for the POST request
     // const postUrl = '/api/api/products';
-    const postUrl = 'http://localhost:8000/api/products';
+    const postUrl = '/api/api/products';
 
     // Define the headers for the request (optional)
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

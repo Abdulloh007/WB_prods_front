@@ -10,10 +10,10 @@ import { Router } from '@angular/router';
 export class ProductsComponent {
 
   title = 'API';
-  // private productsUrl: string = '/api/api/products';
-  private productsUrl: string = 'http://localhost:8000/api/products';
-  // private categoriesUrl: string = '/api/api/category';
-  private categoriesUrl: string = 'http://localhost:8000/api/category';
+  private productsUrl: string = '/api/api/products';
+  // private productsUrl: string = 'http://localhost:8000/api/products';
+  private categoriesUrl: string = '/api/api/category';
+  // private categoriesUrl: string = 'http://localhost:8000/api/category';
 
   productsData: any[] = [];
   categoryData: any[] = [];
@@ -71,7 +71,7 @@ export class ProductsComponent {
         }
         
         if(product.tags !== null){
-          
+
           const tags = product.tags.split(',');
           product.tags = tags;
           console.log(tags);

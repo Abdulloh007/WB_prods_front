@@ -16,15 +16,15 @@ export class UpdateProductsComponent {
   brand: string | undefined;
   
   
-  productUrl = 'http://localhost:8000/api/products';
+  productUrl = '/api/api/products';
   productData: any[] = [];
   productId: string | null;
 
   // private categoriesUrl: string = '/api/api/category';
-  private categoriesUrl: string = 'http://localhost:8000/api/category';
+  private categoriesUrl: string = '/api/api/category';
   categoryData: any[] = [];
 
-  private subcategoriesUrl: string = 'http://localhost:8000/api/subcategory';
+  private subcategoriesUrl: string = '/api/api/subcategory';
   subcategoryData: any[] = [];
   
   constructor(private activeRoute: ActivatedRoute, private http: HttpClient, private router: Router) {
@@ -165,7 +165,7 @@ export class UpdateProductsComponent {
 
     // Define the URL for the POST request
     // const postUrl = '/api/api/products';
-    const postUrl = `http://localhost:8000/api/products/${this.productId}`;
+    const postUrl = `/api/api/products/${this.productId}`;
 
     // Define the headers for the request (optional)
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
