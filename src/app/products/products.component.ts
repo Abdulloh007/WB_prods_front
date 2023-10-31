@@ -10,8 +10,10 @@ import { Router } from '@angular/router';
 export class ProductsComponent {
 
   title = 'API';
-  private productsUrl: string = '/api/api/products';
-  private categoriesUrl: string = '/api/api/category';
+  // private productsUrl: string = '/api/api/products';
+  private productsUrl: string = 'http://localhost:8000/api/products';
+  // private categoriesUrl: string = '/api/api/category';
+  private categoriesUrl: string = 'http://localhost:8000/api/category';
 
   productsData: any[] = [];
   categoryData: any[] = [];
@@ -31,7 +33,9 @@ export class ProductsComponent {
         .subscribe((response) => {
           console.log('Delete request success:', response);
         });
-    this.router.navigate(['/']);
+
+      window.location.reload();
+    // this.router.navigate(['/']);
   }
 
   ngOnInit(): void {
@@ -62,8 +66,19 @@ export class ProductsComponent {
           const formattedDate = formatDateToDmyHis(product.updated_at);
           
           product.updated_at = formattedDate;
+          console.log(product.updated_at);
           
         }
+        
+        if(product.tags !== null){
+          
+          const tags = product.tags.split(',');
+          product.tags = tags;
+          console.log(tags);
+
+        }
+
+        
         const category = this.categoryData.find((category) => category.id === product.category_id);
         if (category) {
           product.category = category.title;

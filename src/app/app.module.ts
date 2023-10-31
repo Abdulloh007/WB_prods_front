@@ -27,6 +27,7 @@ import { UpdateProductsComponent } from './update-products/update-products.compo
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
 
 

@@ -1,4 +1,79 @@
 <app-header></app-header>
+<style>
+
+.main-menu, .sub-menu{
+    box-sizing: border-box;
+    width: 50%;
+}
+.main-menu ul, .sub-menu ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0;
+  box-sizing: border-box;
+  border: 1px solid #d1cfd7;
+}
+
+.main-menu ul li, .sub-menu ul li {
+    cursor: pointer;
+    background-color: transparent;
+    text-align: center;
+    box-sizing: border-box;
+    color: #000;
+    font-family: lato, arial, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 18px;
+    outline: none;
+    overflow: hidden;
+    padding: 10px 30px 10px 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.main-menu ul li:hover, .sub-menu ul li:hover {
+  background-color: #d8d8d8;
+  color: #000;
+}
+
+.mega-menu {
+  background-color: #fff;
+  padding: 10px;
+  display: flex;
+  z-index: 1;
+}
+
+.sub-menu ul li{
+    background-color: #d8d8d8;
+    color: #000;
+}
+.sub-menu ul li:hover{
+    background: #fff;
+    color: #000;
+    border-color: #d1cfd7;
+}
+
+
+/* FOR TAGS */
+
+.tag {
+  display: inline-block;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 2px 6px;
+  margin: 2px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tags-input {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+
+</style>
 <section class="prod_card">
     <div class="Content__children__QelULsz-bN">
         <div class="Card-page-layout__Z7kxUFHl0Q">
@@ -408,11 +483,40 @@
                                                                 <div class="Supplier-subject-select__xlFDWhiXDl"
                                                                     data-error="false">
                                                                     <div
-                                                                        class="Supplier-subject-select__subject__Q4Vi6Bw+nk">
-                                                                        Акриловые пудры</div>
+                                                                        class="Supplier-subject-select__subject__Q4Vi6Bw+nk" id="category" data-id="1">
+                                                                        Не указан</div>
                                                                     <div class="Supplier-subject-select__select-button">
-                                                                        <button class="Temp-button__qtDMSdMtE3"
-                                                                            type="button">Изменить</button></div>
+                                                                        <button class="Temp-button__qtDMSdMtE3" type="button"  (click)="toggleMegaMenu()">
+                                                                            {{ showMegaMenu ? 'Закрыть' : 'Изменить' }}
+                                                                        </button>
+                                                                    </div>
+                                                                </div>                                                               
+                                                                <div *ngIf="showMegaMenu" class="mega-menu">
+                                                                    <div class="main-menu">
+                                                                        <ul>
+                                                                            <li *ngFor="let category of categoryData" (click)="toggleSubMenu(('submenu'+category.id).toString())" (mouseover)="handleHoverClick($event)">{{ category.title }}</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                
+                                                                    <div class="sub-menu" *ngIf="showSubMenu">
+                                                                        <!-- *ngIf="showSubMenu === 'submenu2'" -->
+                                                                        <ul id="submenu">
+                                                                            <li *ngFor="let subcategory of subcategoryData" (click)="SetUpCategories($event)" style="display: none;" [ngClass]="'submenu' + subcategory.category_id" data-id="{{ subcategory.id }}" data-type="{{ subcategory.category_id }}">{{ subcategory.title }}</li>
+                                                                            <!-- <li *ngIf="showSubMenu === 'submenu1'" (click)="SetUpCategories($event)">Акриловые пудры</li>
+                                                                            <li *ngIf="showSubMenu === 'submenu1'" (click)="SetUpCategories($event)">Акриловые пудры</li>
+                                                                            <li *ngIf="showSubMenu === 'submenu1'" (click)="SetUpCategories($event)">Акриловые пудры</li>
+                                                                            <li *ngIf="showSubMenu === 'submenu2'" (click)="SetUpCategories($event)">Другие товары</li>
+                                                                            <li *ngIf="showSubMenu === 'submenu2'" (click)="SetUpCategories($event)">Другие товары</li>
+                                                                            <li *ngIf="showSubMenu === 'submenu2'" (click)="SetUpCategories($event)">Другие товары</li>
+                                                                            <li *ngIf="showSubMenu === 'submenu2'" (click)="SetUpCategories($event)">Другие товары</li>
+                                                                            <li *ngIf="showSubMenu === 'submenu2'" (click)="SetUpCategories($event)">Другие товары</li>
+                                                                            <li *ngIf="showSubMenu === 'submenu3'" (click)="SetUpCategories($event)">Еще категория</li>
+                                                                            <li *ngIf="showSubMenu === 'submenu3'" (click)="SetUpCategories($event)">Еще категория</li>
+                                                                            <li *ngIf="showSubMenu === 'submenu3'" (click)="SetUpCategories($event)">Еще категория</li>
+                                                                            <li *ngIf="showSubMenu === 'submenu3'" (click)="SetUpCategories($event)">Еще категория</li>
+                                                                            <li *ngIf="showSubMenu === 'submenu3'" (click)="SetUpCategories($event)">Еще категория</li> -->
+                                                                        </ul>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -511,6 +615,54 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+
+
+
+                                                        <!-- Tags -->
+                                                        <div class="Field-wrapper__ChpbLLvc2p" id="tags" style="padding-bottom: 12px;">
+                                                            <div class="Field-wrapper__label-wrapper__Lxxzc1u-0n">
+                                                                <div class="Field-wrapper__label__CiKZ3lFmjm"><span
+                                                                        class="Field-wrapper__label-text__im5T-MPGMb">Теги
+                                                                    </span></div>
+                                                            </div>
+                                                            <div class="Field-wrapper__field__ylJn6r5cGy">
+                                                                <div class="Brand-select__HoWhHsxB+7" data-error="false">
+                                                                    <div class="Brand-select__field__pmC3sZQV4j">
+                                                                        <div class="New-search-multi-input__NhtAxyEYYM"
+                                                                            data-name="SearchMultiInput">
+                                                                            <div class="New-multi-select-input__TphAC-Cv80"
+                                                                                id="variants[0].brand-wrapper"
+                                                                                role="searchbox" tabindex="0">
+                                                                                <div
+                                                                                    class="New-multi-select-input__value-container__Dvk75Ln3va">
+                                                                                    <ul style="top: 0; display: flex;top: -3px;margin:0;padding:0;list-style: none;flex-wrap: wrap;" id="TagList">
+                                                                                        <span *ngFor="let tag of tags; let i = index" _ngcontent-ng-c923602347="" class="New-multi-select-input__selected-item__KOh9hWF-7q">
+                                                                                            <span _ngcontent-ng-c923602347="" class="Selected-item__fIyMG5Li-v">
+                                                                                                <span _ngcontent-ng-c923602347="" class="Selected-item__text__6P8EDRPmWD">{{ tag }}</span>
+                                                                                                <button (click)="removefromlist(i)" _ngcontent-ng-c923602347="" id="remove-color-0" type="button" class="Selected-item__remove__5quwjOqRQ8">
+                                                                                                    <svg _ngcontent-ng-c923602347="" fill="none" height="16" viewBox="3 3 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                                                                                                        <path _ngcontent-ng-c923602347="" clip-rule="evenodd" d="M16.4142 15L22.7782 21.364L21.364 22.7782L15 16.4143L8.63604 22.7782L7.22183 21.364L13.5858 15L7.22183 8.63608L8.63604 7.22187L15 13.5858L21.364 7.22187L22.7782 8.63608L16.4142 15Z" fill="#4e4e53" fill-rule="evenodd"></path>
+                                                                                                    </svg>
+                                                                                                </button>
+                                                                                            </span>
+                                                                                        </span>  
+                                                                                    </ul>
+                                                                                    <input autocomplete="off"
+                                                                                        class="New-multi-select-input__input__wCPSFZ0x2n"
+                                                                                        id="variants[0].tags"
+                                                                                        name="variants[0].tags"
+                                                                                        placeholder="" type="text"
+                                                                                        style="width: 100%;" id="tagsInput" (keydown.enter)="onEnterKey(inputElement)"
+                                                                                        #inputElement>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                          
+                                                          
                                                         <div class="Color-select" id="color-charc">
                                                             <div class="Color-select__field">
                                                                 <div class="Field-wrapper__ChpbLLvc2p" id="Цвет"
@@ -1558,7 +1710,7 @@
                                                     товаров</span></button></div>
                                         <div class="Form-actions__submit__yBj52Y1qCr"><button
                                                 class="Button-link__q36cnJyzuz Button-link--button__0zL+jIIkes Button-link--accent__GVf2T+5mlb Button-link--button-big__j0aMMmWH4Y"
-                                                type="button"  (click)="sendPostRequest()"><span class="Button-link__text">Изменить и
+                                                type="button"  (click)="sendPostRequest()"><span class="Button-link__text">Создать и
                                                     завершить</span></button></div>
                                     </div>
                                 </div>

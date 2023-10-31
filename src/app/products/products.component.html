@@ -335,15 +335,10 @@
                                                 <td class="New-table-body-row-cell-component__Pz2HFf1A3z" title="Теги"
                                                     style="max-width: 120px; width: 120px; min-width: 0px;">
                                                     <div>
-                                                        <div class="Tags-cell__W+XkeB775g" role="button" tabindex="0">
-                                                            <div class="Tags-cell__tags__h3Pzl6q9at"></div>
-                                                            <div class="Tags-cell__add__OGujEelr0q"><svg fill="none"
-                                                                    height="16" viewBox="-2 -2 24 24" width="16"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path clip-rule="evenodd"
-                                                                        d="M11 9H20V11H11V20H9V11H0V9H9V0H11V9Z"
-                                                                        fill="#d1cfd7" fill-rule="evenodd"></path>
-                                                                </svg></div>
+                                                        <div class="Tags-cell__W+XkeB775g" role="button" tabindex="0" style="flex-wrap: wrap;">
+                                                            <span *ngFor="let item of product.tags" >
+                                                                {{ item }}
+                                                            </span>     
                                                         </div>
                                                     </div>
                                                 </td>
