@@ -219,7 +219,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <form class="Card-form__form__NC18+KEgxK">
+                            <form class="Card-form__form__NC18+KEgxK" enctype="multipart/form-data">
                                 <div class="Card-form__subjects-selector__3cs96NSRQa">
                                     <div class="Subject-selector__6HPF8daxP1">
                                         <div class="Subject-selector__selected__GqkxgRCRuR">
@@ -238,10 +238,11 @@
                                                 <div data-error="false">
                                                     <div class="Media-files-editor__yupt7AV2Kg" id="media">
                                                         <div class="Media-dnd-files__0CtJMcB5rR">
-                                                            <div class="Uploader-button__vx-eVBbZ6+"><button
+                                                            <div class="Uploader-button__vx-eVBbZ6+">
+                                                                <label for="photo"
                                                                     class="Uploader-button__button-icon__rzi9ISzHRU"
                                                                     type="button">
-                                                                    <div class="Uploader-button__icon"><svg fill="none"
+                                                                    <div class="Uploader-button__icon" [ngStyle]="{ 'display': selectedFile ? 'block' : 'block' }"><svg fill="none"
                                                                             height="112" viewBox="0 0 145 112" width="145"
                                                                             xmlns="http://www.w3.org/2000/svg">
                                                                             <rect fill="#F7F7FA" height="67.9879"
@@ -334,7 +335,7 @@
                                                                                 </filter>
                                                                             </defs>
                                                                         </svg></div>
-                                                                    <div class="Uploader-button__add__I++bpBEK2e">Загрузите
+                                                                    <div class="Uploader-button__add__I++bpBEK2e" style="text-align: center;" id="filename">Загрузите
                                                                         файлы или перетащите их сюда</div>
                                                                     <div
                                                                         class="Uploader-button__requirements-tooltip__EO4MWCm99h">
@@ -356,13 +357,14 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="Uploader-button__choose__j7rUo9nu59">Выбрать
+                                                                    <div class="Uploader-button__choose__j7rUo9nu59" id="filename" [ngStyle]="{ 'display': selectedFile ? 'none' : 'block' }">Выбрать
                                                                     </div>
-                                                                </button><input
+                                                                </label>.
+                                                                <input (change)="onFileSelected($event)"                                                           
                                                                     accept="image/jpg,image/png,image/jpeg,video/mp4,video/quicktime"
                                                                     autocomplete="off"
                                                                     class="Media-upload-input__WpwQ7uOVsU" id="photo"
-                                                                    multiple="" name="photo" type="file"></div>
+                                                                    multiple="" name="image" type="file"></div>
                                                             <div class="Media-files-editor__media-files__t1S1Y8y1VV">
                                                                 <div id="DndDescribedBy-0" style="display: none;">
                                                                     To pick up a draggable item, press the space bar.
@@ -399,7 +401,7 @@
                                                                                 autocomplete="off"
                                                                                 class="Simple-input__field__TdHUC0GsSi"
                                                                                 id="upload-by-link" name="upload-by-link"
-                                                                                placeholder="https://" value=""></div>
+                                                                                placeholder="https://" value="" [(ngModel)]="imageLink" [ngModelOptions]="{ standalone: true }"></div>
                                                                     </div>
                                                                     <div class="Media-upload-by-link__button__wtscjZzKEW">
                                                                         <button

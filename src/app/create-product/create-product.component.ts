@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-create-product',
@@ -13,16 +14,36 @@ export class CreateProductComponent {
   description: string | undefined;
   article: string | undefined;
   brand: string | undefined;
+  imageLink: string | undefined;
+
+
   
-
   // private categoriesUrl: string = '/api/api/category';
-  private categoriesUrl: string = '/api/api/category';
+  private categoriesUrl: string = 'http://localhost:8000/api/category';
   categoryData: any[] = [];
-
-  private subcategoriesUrl: string = '/api/api/subcategory';
+  
+  // private subcategoriesUrl: string = '/api/api/subcategory';
+  private subcategoriesUrl: string = 'http://localhost:8000/api/subcategory';
   subcategoryData: any[] = [];
+  
+  
+  selectedFile: File | undefined;
 
+  onFileSelected(event: any): void {
+    
+    this.selectedFile = event.target.files[0];
+    
+    const fileNameElement = document.getElementById('filename');
 
+    if (fileNameElement && this.selectedFile) {
+      fileNameElement.innerHTML = this.selectedFile.name;
+    }
+    
+    console.log(this.selectedFile);
+
+  }
+  
+  
 
 
   ngOnInit(): void {
@@ -124,16 +145,22 @@ export class CreateProductComponent {
     
     // console.log(inputElement.value);
   }
-
+  
   constructor(private http: HttpClient, private router: Router) {}
-
+  
   // Method to send the POST request
   sendPostRequest() {
-
+    
     let subcategory = document.getElementById('category')?.getAttribute('data-id');    
     let category = document.getElementById('category')?.getAttribute('data-type');    
-
+    
     let tags = this.tags.join(',');
+    let image: any;
+    if(this.imageLink==undefined || this.imageLink==null ){
+      image = this.selectedFile;
+    }else{
+      image = this.imageLink;
+    }
 
     // Define the data you want to send in the request body
     const postData = {
@@ -142,7 +169,7 @@ export class CreateProductComponent {
       description: this.description,
       brand: this.brand,
       tags: tags,
-      image: null,
+      image: image,
       category_id: category,
       subcategory_id: subcategory,
       TNVED: null,
@@ -150,12 +177,13 @@ export class CreateProductComponent {
       extra_fileds: null,
       bardoc: null,
       sizes: null,
-      docs: null,    
+      docs: null,   
+      file: this.selectedFile,   
     };
-
+    
     // Define the URL for the POST request
-    // const postUrl = '/api/api/products';
     const postUrl = '/api/api/products';
+    // const postUrl = 'http://localhost:8000/api/products';
 
     // Define the headers for the request (optional)
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -165,6 +193,8 @@ export class CreateProductComponent {
       (response) => {
         console.log('POST request success:', response);
         this.router.navigate(['/']);
+        this.selectedFile = undefined;
+
       },
       (error) => {
         console.log('POST request error: ' + error.error);
