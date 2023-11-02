@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import axios from 'axios';
 
 @Component({
   selector: 'app-create-product',
@@ -15,15 +16,22 @@ export class CreateProductComponent {
   article: string | undefined;
   brand: string | undefined;
   imageLink: string | undefined;
+  priceforbarcode: number | undefined;
 
+  isExpended: boolean = true;
+  barcode: any = false; 
 
+  scroll() {
+
+    this.isExpended = !this.isExpended;
   
-  // private categoriesUrl: string = '/api/api/category';
-  private categoriesUrl: string = 'http://localhost:8000/api/category';
+  }
+  private categoriesUrl: string = '/api/api/category';
+  // private categoriesUrl: string = 'http://localhost:8000/api/category';
   categoryData: any[] = [];
   
-  // private subcategoriesUrl: string = '/api/api/subcategory';
-  private subcategoriesUrl: string = 'http://localhost:8000/api/subcategory';
+  private subcategoriesUrl: string = '/api/api/subcategory';
+  // private subcategoriesUrl: string = 'http://localhost:8000/api/subcategory';
   subcategoryData: any[] = [];
   
   
@@ -37,6 +45,7 @@ export class CreateProductComponent {
 
     if (fileNameElement && this.selectedFile) {
       fileNameElement.innerHTML = this.selectedFile.name;
+      // console.log(this.selectedFile.url);
     }
     
     console.log(this.selectedFile);
@@ -47,7 +56,6 @@ export class CreateProductComponent {
 
 
   ngOnInit(): void {
-
 
     Promise.all([
       fetch(this.categoriesUrl).then((response) => response.json()),
@@ -129,6 +137,13 @@ export class CreateProductComponent {
       this.tags.splice(idx, 1);
     }
   }
+
+  removefromColorlist(idx: any) {
+    if (idx >= 0 && idx < this.tags.length) {
+      this.tags.splice(idx, 1);
+    }
+  }
+  
   
   tags: any[] = [];
 
@@ -145,23 +160,65 @@ export class CreateProductComponent {
     
     // console.log(inputElement.value);
   }
+
+  colors: any[] = [];
+
+  onEnterKeyColors(inputColorElement: HTMLInputElement){
+    let ColorList = document.getElementById('ColorList');
+    let colorInput = document.getElementById('colorInput');
+    if (colorInput && ColorList) {
+      if(inputColorElement.value.length > 0){
+        this.colors.push(inputColorElement.value);
+        inputColorElement.value = "";
+        colorInput.style.padding = `0 0 0 ${ ColorList.style.width }`;
+      }
+    }
+    
+    // console.log(inputElement.value);
+  }
   
   constructor(private http: HttpClient, private router: Router) {}
   
-  // Method to send the POST request
+
+  generateBarcode() {
+    // const apiUrl = 'http://localhost:8000/api/barcode-generate'; // Replace with the actual API URL
+    const apiUrl = '/api/api/barcode-generate'; // Replace with the actual API URL
+
+    axios.get(apiUrl)
+    .then((response) => {
+
+      const barcodeElement = document.getElementById('barcode');
+      if (barcodeElement) {
+        barcodeElement.innerHTML = response.data.barcode;
+        this.barcode = response.data.barcode;
+      }
+
+    })
+    .catch((error) => {
+      // Handle any errors that occur during the request
+      console.error('GET request error:', error);
+    });
+
+
+
+  }
+
   sendPostRequest() {
     
-    let subcategory = document.getElementById('category')?.getAttribute('data-id');    
-    let category = document.getElementById('category')?.getAttribute('data-type');    
+    let subcategory = document.getElementById('category')?.getAttribute('data-id');
+    let category = document.getElementById('category')?.getAttribute('data-type');
     
+    const bardoc = [{ barcode: this.barcode, priceforbarcode: this.priceforbarcode }]
+
     let tags = this.tags.join(',');
+    let colors = this.colors.join(',');
     let image: any;
-    if(this.imageLink==undefined || this.imageLink==null ){
+    if (this.imageLink == undefined || this.imageLink == null) {
       image = this.selectedFile;
-    }else{
+    } else {
       image = this.imageLink;
     }
-
+    
     // Define the data you want to send in the request body
     const postData = {
       title: this.title,
@@ -173,32 +230,32 @@ export class CreateProductComponent {
       category_id: category,
       subcategory_id: subcategory,
       TNVED: null,
-      color: null,
+      color: colors,
       extra_fileds: null,
-      bardoc: null,
+      bardoc: JSON.stringify(bardoc),
       sizes: null,
-      docs: null,   
-      file: this.selectedFile,   
+      docs: null,
+      file: this.selectedFile,
     };
     
     // Define the URL for the POST request
     const postUrl = '/api/api/products';
     // const postUrl = 'http://localhost:8000/api/products';
-
-    // Define the headers for the request (optional)
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-    // Make the POST request
-    this.http.post(postUrl, postData, { headers }).subscribe(
-      (response) => {
+    
+    // Make the POST request using Axios
+    axios.post(postUrl, postData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+      })
+      .then((response) => {
         console.log('POST request success:', response);
         this.router.navigate(['/']);
         this.selectedFile = undefined;
-
-      },
-      (error) => {
-        console.log('POST request error: ' + error.error);
-      }
-    );
+      })
+      .catch((error) => {
+        console.log('POST request error:', error);
+      });
+    
   }
 }
