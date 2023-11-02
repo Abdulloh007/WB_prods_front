@@ -313,7 +313,7 @@
                                                     <div class="Photo-cell__dyiv8i99Vl"><img
                                                             alt="https://basket-12.wb.ru/vol1807/part180714/180714490/images/c516x688/1.jpg?1697794851407"
                                                             class="Photo-cell__img__m9sYbqHnLT"
-                                                            src="{{ product.image }}">
+                                                            src="api/{{ product.image }}">
                                                     </div>
                                                 </td>
                                                 <td class="New-table-body-row-cell-component__Pz2HFf1A3z"
@@ -353,8 +353,13 @@
                                                     {{ product.updated_at }}</td>
                                                 <td class="New-table-body-row-cell-component__Pz2HFf1A3z" title=""
                                                     style="max-width: 100px; width: 100px; min-width: 0px;">
-                                                    <div class="Sizes-cell__VEzdpw+1Ya"><span
-                                                            class="Sizes-cell__value__yjvtExDVjh">белый</span></div>
+                                                    <div>
+                                                        <div class="Tags-cell__W+XkeB775g" role="button" tabindex="0" style="flex-wrap: wrap;">
+                                                            <span *ngFor="let item of product.colors" >
+                                                                {{ item }}
+                                                            </span>     
+                                                        </div>
+                                                    </div>
                                                 </td>
                                                 <td class="New-table-body-row-cell-component__Pz2HFf1A3z" title=""
                                                     style="max-width: 130px; width: 130px; min-width: 130px;">
@@ -363,7 +368,7 @@
                                                 <td class="New-table-body-row-cell-component__Pz2HFf1A3z" title=""
                                                     style="max-width: 150px; width: 150px; min-width: 0px;">
                                                     <div class="Sku-cell__Tc8oxF2jqY"><span
-                                                            class="Sku-cell__value__nItDsSVlPo">2038746238348</span>
+                                                            class="Sku-cell__value__nItDsSVlPo">{{ product.bardoc[0].barcode }}</span>
                                                     </div>
                                                 </td>
                                                 <td class="New-table-body-row-cell-component__Pz2HFf1A3z" title=""

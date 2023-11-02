@@ -11,9 +11,9 @@ import axios from 'axios';
 })
 export class CreateProductComponent {
 
-  title: string | undefined;
+  title: string | undefined; // required
   description: string | undefined;
-  article: string | undefined;
+  article: string | undefined; // required
   brand: string | undefined;
   imageLink: string | undefined;
   priceforbarcode: number | undefined;
@@ -205,8 +205,32 @@ export class CreateProductComponent {
 
   sendPostRequest() {
     
+    let validationerror = "";
     let subcategory = document.getElementById('category')?.getAttribute('data-id');
     let category = document.getElementById('category')?.getAttribute('data-type');
+    let isnullany = 0;
+
+    if(this.title==undefined || this.title == null || this.title==""){
+      validationerror += "Наименование продукта не добавлено. Заполните поле! \n";
+      isnullany += 1;
+    }
+  
+  
+    if(this.article==undefined || this.article == null || this.title==""){
+      validationerror += "Артикул продавца не добавлено. Заполните поле ! \n";
+      isnullany += 1;
+    }
+
+    if(subcategory==undefined || subcategory == null){
+      validationerror += "Категория продукта не добавлена. Выберите категорию ! \n";
+      isnullany += 1;
+    } 
+
+    console.log(this.title + " " + this.article + " " + subcategory);
+
+    if(isnullany!=0){
+      alert(validationerror);
+    }else{
     
     const bardoc = [{ barcode: this.barcode, priceforbarcode: this.priceforbarcode }]
 
@@ -257,5 +281,6 @@ export class CreateProductComponent {
         console.log('POST request error:', error);
       });
     
+    }
   }
 }

@@ -10,10 +10,10 @@ import { Router } from '@angular/router';
 export class ProductsComponent {
 
   title = 'API';
-  private productsUrl: string = '/api/api/products';
-  // private productsUrl: string = 'http://localhost:8000/api/products';
-  private categoriesUrl: string = '/api/api/category';
-  // private categoriesUrl: string = 'http://localhost:8000/api/category';
+  // private productsUrl: string = '/api/api/products';
+  private productsUrl: string = 'http://localhost:8000/api/products';
+  // private categoriesUrl: string = '/api/api/category';
+  private categoriesUrl: string = 'http://localhost:8000/api/category';
 
   productsData: any[] = [];
   categoryData: any[] = [];
@@ -78,7 +78,17 @@ export class ProductsComponent {
 
         }
 
-        
+        if(product.color !== null){
+
+          const colors = product.color.split(',');
+          product.colors = colors;
+          console.log(colors);
+
+        }
+        if(product.bardoc !== null || product.barcode!==undefined){
+          product.bardoc = JSON.parse(product.bardoc)
+        }
+
         const category = this.categoryData.find((category) => category.id === product.category_id);
         if (category) {
           product.category = category.title;
